@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class GitlabCommitWithStats extends GitlabCommit {
 
-    public static final String URL = "with_stats=true";
+    public static final String URL = "with_stats";
     @JsonProperty("stats")
     private GitlabCommitStats gitlabCommitStats;
 

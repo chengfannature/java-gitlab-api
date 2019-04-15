@@ -2089,9 +2089,13 @@ public class GitlabAPI {
     }
 
     public List<GitlabCommitWithStats> getCommitWithStats(Serializable projectId, Pagination pagination) throws IOException {
-        String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(projectId) + "/repository" + GitlabCommit.URL + "?" +
-                GitlabCommitWithStats.URL + pagination;
-        GitlabCommitWithStats[] stats = retrieve().to(tailUrl, GitlabCommitWithStats[].class);
+        String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(projectId) + "/repository" + GitlabCommit.URL;
+        Query query = new Query()
+                .append(GitlabCommitWithStats.URL, "true");
+        if (pagination != null) {
+            query.mergeWith(pagination.asQuery());
+        }
+        GitlabCommitWithStats[] stats = retrieve().to(tailUrl + query, GitlabCommitWithStats[].class);
         return Arrays.asList(stats);
     }
 
