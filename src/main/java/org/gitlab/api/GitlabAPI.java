@@ -1728,8 +1728,8 @@ public class GitlabAPI {
                 GitlabMergeRequest.URL + "/" + mergeRequest.getIid() +
                 GitlabDiscussion.URL;
 
-        GitlabDiscussion[] discussions = retrieve().to(tailUrl, GitlabDiscussion[].class);
-        return Arrays.asList(discussions);
+        List<GitlabDiscussion> discussions = retrieve().getAll(tailUrl, GitlabDiscussion[].class);
+        return discussions;
     }
 
     /**
@@ -2031,6 +2031,27 @@ public class GitlabAPI {
         String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(projectId) +
                 "/repository" + GitlabCommit.URL + query;
         return retrieve().getAll(tailUrl, GitlabCommit[].class);
+    }
+
+    public List<GitlabCommitWithStats> getAllCommitsWithStats(Serializable projectId, String branchOrTag) throws IOException {
+        return getAllCommitsWithStats(projectId, null, branchOrTag);
+
+    }
+    public List<GitlabCommitWithStats> getAllCommitsWithStats(Serializable projectId, Pagination pagination,
+                                            String branchOrTag) throws IOException {
+        final Query query = new Query()
+                .append(GitlabCommitWithStats.URL, "true");
+        if (branchOrTag != null) {
+            query.append("ref_name", branchOrTag);
+        }
+
+        if (pagination != null) {
+            query.mergeWith(pagination.asQuery());
+        }
+
+        String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(projectId) +
+                "/repository" + GitlabCommit.URL + query;
+        return retrieve().getAll(tailUrl, GitlabCommitWithStats[].class);
     }
 
     // List commit diffs for a project ID and commit hash

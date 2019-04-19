@@ -40,8 +40,8 @@ public class GitlabGroup {
     @JsonProperty("ldap_access")
     private Integer ldapAccess;
 
-    @JsonProperty("shared_projects")
-    private List<GitlabProject> sharedProjects;
+    @JsonProperty("projects")
+    private List<GitlabProject> projects;
 
     @JsonProperty("web_url")
     private String webUrl;
@@ -188,12 +188,12 @@ public class GitlabGroup {
         }
     }
 
-    public List<GitlabProject> getSharedProjects() {
-        return sharedProjects;
+    public List<GitlabProject> getProjects() {
+        return projects;
     }
 
-    public void setSharedProjects(List<GitlabProject> sharedProjects) {
-        this.sharedProjects = sharedProjects;
+    public void setProjects(List<GitlabProject> projects) {
+        this.projects = projects;
     }
 
     public String getWebUrl() {
