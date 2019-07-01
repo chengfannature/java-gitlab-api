@@ -15,6 +15,8 @@ public class GitlabNote {
     private boolean system;
     private boolean upvote;
     private boolean downvote;
+    private boolean resolved;
+
 
     @JsonProperty("created_at")
     private Date createdAt;
@@ -81,5 +83,13 @@ public class GitlabNote {
 
     public void setDownvote(boolean downvote) {
         this.downvote = downvote;
+    }
+
+    public boolean isResolved() {
+        return resolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
     }
 }
